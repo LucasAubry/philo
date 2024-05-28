@@ -10,7 +10,7 @@ CFLAGS	=	-Wall -Wextra -Werror -pthread -Iinclude -g -O0
 FILES = main \
 		error/error_message \
 		error/free_all \
-		check_error \
+		error/check_error \
 		utils \
 		routine	
 

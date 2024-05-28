@@ -6,74 +6,46 @@
 /*   By: lucasaubry <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:51:46 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/05/28 06:48:13 by laubry           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:43:27 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
 
-int	check_error_2(int argc, char **argv)
+int	check_error_2(t_data *data, int i, t_philo *philo)
 {
-	(void)argc;
-	if (argv[3] <= 0)
-	{
-		printf("le temps pour mager est trop court");
-		return (0);
-	}
-	if (argv[4] <= 0)
-	{
-		printf("le temps pour dormire est trop long");
-		return (0);
-	}
-	return (1);
+	if (data->time_to_eat <= 0)
+		i = print_error(ERR_TIME_TO_EAT_TO_SHORT, philo);
+	if (data->time_to_sleep <= 0)
+		i = print_error(ERR_TIME_TO_SLEEP_TO_SHORT, philo);
+	return (i);
 }
 
-int	check_error_max(int argc, char **argv)
+int	check_error_max(t_data *data, int i, t_philo *philo)
 {
-	(void)argc;
-	if (argv[1] > 200)
-	{
-		printf("il y a trop de philo");
-		return (0);
-	}
-	if (argv[2] > INT_MAX)
-	{
-		printf("le temps pour pour mourire sans manger est trop long");
-		return (0);
-	}
-	if (argv[3] > INT_MAX)
-	{
-		printf("le temps pour manger est trop long");
-		return (0);
-	}
-	if (argv[4] > INT_MAX)
-	{
-		printf("le temps pour dormir est trop long");
-		return (0);
-	}
-	return (1);
+	if (data->nbr_philo > 200)
+		i = print_error(ERR_TOO_MANY_PHILO, philo);
+	if (data->time_to_die > INT_MAX)
+		i = print_error(ERR_TO_DIE_NO_EAT_TO_LONG, philo);
+	if (data->time_to_eat > INT_MAX)
+		i = print_error(ERR_TIME_TO_EAT_TO_LONG, philo);
+	if (data->time_to_sleep > INT_MAX)
+		i = print_error(ERR_TIME_TO_SLEEP_TO_LONG, philo);
+	return (i);
 }
 
-int	check_error(int argc, char **argv)
+int	check_error(int argc, t_data *data, t_philo *philo)
 {
-
-	if (argc != 5 || argc != 6)
-	{
-		printf("les arguments ne sont pas bons");
+	int i = 0;
+	if (argc != 5 && argc != 6)
+		i = print_error(ERR_ARGS, philo);
+	if (data->nbr_philo <= 0)
+		i = print_error(ERR_NBR_PHILO, philo);
+	if (data->time_to_die <= 0)
+		i = print_error(ERR_TIME_TO_DIE_NO_EAT_TO_SHORT, philo);
+	i = check_error_2(data, i, philo);
+	i = check_error_max(data, i, philo);
+	if (i == 1)
 		return (0);
-	}
-	if (argv[1] <= 0)
-	{
-		printf("il n'y a pas de philo");
-		return (0);
-	}
-	if (argv[2] <= 0)
-	{
-		printf("le temps pour mourir sans mager est trop court");
-		return (0);
-	}
-	if (check_error_2(argc, argv) == 0)
-			return (0);
-	if (check_error_max(argc, argv) == 0)
-		return (0);
-	return (1);
+	else
+		return (1);
 }
