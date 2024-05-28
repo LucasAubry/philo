@@ -1,29 +1,22 @@
 #-----------------------Flags_and_Name---------------------
+NAME	=	philo
+CC		=	cc
+CFLAGS	=	-Wall -Wextra -Werror -pthread -Iinclude -g -O0
 
-CC =		cc
-CFLAGS	=	-Wall -Wextra -Werror -Iinclude -g -O0
-
-LFLAGS = -Llib -lft -ldl
 #-L/opt/homebrew/lib 
-CLIENT = client
-SERVER = server
 #------------------------Source-----------------------------
 
-# Files
-check_error.c
-
 # Sources and objects
-FILES_S = server 
+FILES = main \
+		error/error_message \
+		error/free_all \
+		check_error \
+		utils \
+		routine	
 
-SRCS_S = $(addprefix src/, $(addsuffix .c, $(FILES_S)))
-OBJS_S = $(addprefix obj/, $(addsuffix .o, $(FILES_S)))
+SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
+OBJS = $(addprefix obj/, $(addsuffix .o, $(FILES)))
 
-FILES_C = client
-
-SRCS_C = $(addprefix src/, $(addsuffix .c, $(FILES_C)))
-OBJS_C = $(addprefix obj/, $(addsuffix .o, $(FILES_C)))
-
-OBJS = $(OBJS_C) $(OBJS_S)
 #------------------------Colors-----------------------------
 
 define generate_random_color
@@ -33,39 +26,29 @@ endef
 
 #------------------------Rules------------------------------
 
-all:	obj $(CLIENT) $(SERVER)
+all:	${NAME}
 
 obj:
 	mkdir -p obj
+	mkdir -p obj/error
 
-$(CLIENT): $(LIB) $(OBJS_C)
-		@$(call generate_random_color, $(CC) $(CFLAGS) -o $@ $(OBJS_C) $(LFLAGS) $(LIB))
-		@$(CC) $(CFLAGS) -o $@ $(OBJS_C) $(LFLAGS) $(LIB)
+.c.o:
+		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
-$(SERVER): $(LIB) $(OBJS_S)
-		@$(call generate_random_color, $(CC) $(CFLAGS) -o $@ $(OBJS_S) $(LFLAGS) $(LIB))
-		@$(CC) $(CFLAGS) -o $@ $(OBJS_S) $(LFLAGS) $(LIB)
-
-$(LIB):
-	make -C lib/Libft
-	cp lib/Libft/libft.a lib/
+$(NAME): obj ${OBJS}
+		@$(call generate_random_color, $(CC) $(CFLAGS) -o $@ $(OBJS))
+		@$(CC) $(CFLAGS) -o $(NAME) ${OBJS}
 
 obj/%.o: src/%.c
 	@$(call generate_random_color, $(CC) $(CFLAGS) -c $< -o $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-		rm -f $(OBJS) $(BONUSOBJS)
+		rm -f ${OBJS}
 
 fclean:	clean
-		rm -f $(CLIENT) $(SERVER)
-		rm -f lib/libft.a
-		make fclean -C lib/Libft
+		rm -f ${NAME}
 		rm -rf obj
-
-.c.o:
-		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
-
 
 re:	fclean all
 

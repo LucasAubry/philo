@@ -6,12 +6,14 @@
 /*   By: lucasaubry <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:51:46 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/04/16 12:05:51 by lucasaubry       ###   ########.fr       */
+/*   Updated: 2024/05/28 06:48:13 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "philo.h"
 
-int	check_error(int argc, char **argv)
+int	check_error_2(int argc, char **argv)
 {
+	(void)argc;
 	if (argv[3] <= 0)
 	{
 		printf("le temps pour mager est trop court");
@@ -27,6 +29,7 @@ int	check_error(int argc, char **argv)
 
 int	check_error_max(int argc, char **argv)
 {
+	(void)argc;
 	if (argv[1] > 200)
 	{
 		printf("il y a trop de philo");

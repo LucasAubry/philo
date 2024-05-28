@@ -6,7 +6,7 @@
 /*   By: lucasaubry <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/05/27 13:39:59 by laubry           ###   ########.fr       */
+/*   Updated: 2024/05/28 06:50:45 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@
 
 # include "pthread.h"
 # include "unistd.h"
-
+# include "stdlib.h"
 
 /* ========== STRUCTURE ============= */
 
-typedef strucut s_list
+typedef struct s_list
 {
 	struct s_data *data;
 	pthread_t	tid;
 	struct s_philo *next;
-} t_list;
+}	t_list;
 
 
 typedef struct s_data
@@ -38,40 +38,36 @@ typedef struct s_data
 	long		time_to_eat;
 	long		time_to_sleep;
 	long		nbr_of_meals;
-} t_data;
+}	t_data;
 
 
 typedef struct s_philo
 {
 	pthread_t	tid;
+	int	id;
 	int	eat;
 	int	sleep;
 	int	think;
 	int	die;
-	int fork left;
-	int fork *right;
+	pthread_mutex_t	fork_left;
+	pthread_mutex_t	*fork_right;
+	struct s_data *data;
 
-	struct *s_data;
-}t_philo;
+}	t_philo;
 
-// ./philo 20 500 200 200
-//
-//	
-//	000 : start
-//	050 : philo 4 f g
-//	052 : philo 4 f d
-// 	200 : philo 4 is eating
-//
 /* =========== Error ================*/
 
 # define ERROR_CREATE_PHILO 0
-
+# define ERROR_CREATE_MUTEX 0
+# define ERROR_MALLOC 0
 
 /* ========= FONCTION ============== */
 
 //tools :
-long	ft_atoi(char *str);
-
-
+long	ft_atol(char *str);
+int	print_error(int code_error, t_philo *philo);
+void	*routine(void *buff);
+void	free_all(t_philo *philo);
+int	check_error(int argc, char **argv);
 
 #endif
