@@ -6,7 +6,7 @@
 /*   By: lucasaubry <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/05/28 17:34:52 by laubry           ###   ########.fr       */
+/*   Updated: 2024/05/29 17:08:06 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "pthread.h"
 # include "unistd.h"
 # include "stdlib.h"
+# include "stdio.h"
 
 /* ========== STRUCTURE ============= */
 
@@ -38,6 +39,8 @@ typedef struct s_data
 	long		time_to_eat;
 	long		time_to_sleep;
 	long		nbr_of_meals;
+	int			die;
+	pthread_mutex_t print;
 }	t_data;
 
 
@@ -48,7 +51,6 @@ typedef struct s_philo
 	int	eat;
 	int	sleep;
 	int	think;
-	int	die;
 	pthread_mutex_t	fork_left;
 	pthread_mutex_t	*fork_right;
 	struct s_data *data;
@@ -56,6 +58,11 @@ typedef struct s_philo
 }	t_philo;
 
 /* =========== Error ================*/
+
+/*--------------obligatoir--------------*/
+
+
+/*-------------a voir si obligatoir ----*/
 
 # define ERR_CREATE_PHILO 1
 # define MSG_CREATE_PHILO "erreur create philo\n"
@@ -91,6 +98,8 @@ void	*routine(void *buff);
 void	free_all(t_philo *philo);
 //int	check_error(int argc, t_data *data, t_philo *philo);
 void	print_str(char *str);
-int les_enfants_sont_au_park(t_data *data);
+int if_is_dead(t_data *data, t_philo *philo);
+int	print_philo_is_dead(t_philo *philo, int i);
+void	print_philo(t_philo *philo, char *str);
 
 #endif

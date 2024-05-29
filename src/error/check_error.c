@@ -6,7 +6,7 @@
 /*   By: lucasaubry <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:51:46 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/05/28 15:43:27 by laubry           ###   ########.fr       */
+/*   Updated: 2024/05/28 19:26:43 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "philo.h"
@@ -49,3 +49,4 @@ int	check_error(int argc, t_data *data, t_philo *philo)
 	else
 		return (1);
 }
+

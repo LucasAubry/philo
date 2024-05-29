@@ -33,3 +33,18 @@ int	print_error(int code_error, t_philo *philo)
 	free_all(philo);
 	return (1);
 }
+
+int	print_philo_is_dead(t_philo *philo, int i)
+{
+	printf("le philo[%d] vient de mourir (le con)\n", i);
+	free_all(philo);
+	return (1);
+}
+
+void	print_philo(t_philo *philo, char *str)
+{
+	pthread_mutex_lock(&philo->data->print);
+	printf("the philo[%d] %s", philo->id, str);
+	pthread_mutex_unlock(&philo->data->print);
+}
+

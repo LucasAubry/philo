@@ -8,7 +8,7 @@ CFLAGS	=	-Wall -Wextra -Werror -pthread -Iinclude -g -O0
 
 # Sources and objects
 FILES = main \
-		error/error_message \
+		print_all \
 		error/free_all \
 		error/check_error \
 		utils \
