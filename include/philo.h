@@ -6,7 +6,7 @@
 /*   By: lucasaubry <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/05/29 17:08:06 by laubry           ###   ########.fr       */
+/*   Updated: 2024/05/30 20:53:49 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,47 +59,35 @@ typedef struct s_philo
 
 /* =========== Error ================*/
 
-/*--------------obligatoir--------------*/
-
-
-/*-------------a voir si obligatoir ----*/
-
-# define ERR_CREATE_PHILO 1
-# define MSG_CREATE_PHILO "erreur create philo\n"
-# define ERR_CREATE_MUTEX 2
-# define MSG_CREATE_MUTEX "erreur create mutex\n"
-# define ERR_MALLOC 3
-# define MSG_MALLOC "erreur malloc\n"
-# define ERR_NBR_PHILO 4
-# define MSG_NBR_PHILO "erreur nombre de philo\n"
-# define ERR_TIME_TO_DIE_NO_EAT_TO_SHORT 5
-# define MSG_TIME_TO_DIE_NO_EAT_TO_SHORT "erreur temps pour mager est trop court\n"
-# define ERR_TOO_MANY_PHILO 6
-# define MSG_TOO_MANY_PHILO "erreur trop de philo\n"
-# define ERR_TO_DIE_NO_EAT_TO_LONG 7
-# define MSG_TO_DIE_NO_EAT_TO_LONG "erreur le temps sans manger est trop long\n"
-# define ERR_TIME_TO_SLEEP_TO_LONG 8
-# define MSG_TIME_TO_SLEEP_TO_LONG "erreur le temps pour dormir est trop long\n"
-# define ERR_TIME_TO_SLEEP_TO_SHORT 9
-# define MSG_TIME_TO_SLEEP_TO_SHORT "erreur le temps pour dormir est trop court\n"
-# define ERR_TIME_TO_EAT_TO_LONG 10
-# define MSG_TIME_TO_EAT_TO_LONG "erreur le temps pour manger est trop long\n"
-# define ERR_ARGS 11
-# define MSG_ARGS "erreur le nombres d'arguement n'est pas bon\n"
-# define ERR_TIME_TO_EAT_TO_SHORT 12
-# define MSG_TIME_TO_EAT_TO_SHORT "erreur le temps pour manger est trop court\n" 
+# define ERR_ARGS 1
+# define ERR_MALLOC 2
+# define ERR_CREATE_MUTEX 3
+# define ERR_CREATE_PHILO 4
+# define ERR_TOO_PHILO 5
 
 /* ========= FONCTION ============== */
 
 //tools :
 long	ft_atol(char *str);
-int	print_error(int code_error, t_philo *philo);
 void	*routine(void *buff);
 void	free_all(t_philo *philo);
+int	ft_strlen(char *str);
+
 //int	check_error(int argc, t_data *data, t_philo *philo);
 void	print_str(char *str);
 int if_is_dead(t_data *data, t_philo *philo);
 int	print_philo_is_dead(t_philo *philo, int i);
 void	print_philo(t_philo *philo, char *str);
+
+
+int	new_error(int argc, char **argv);
+int	print_error(int code_error);
+int	error_advanced(t_data data);
+
+
+//philo :
+int	make_philo(t_data data, t_philo *philo);
+int	if_is_dead(t_data *data, t_philo *philo);
+int	init_philo(t_data *data, t_philo *philo);
 
 #endif

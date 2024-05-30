@@ -9,9 +9,10 @@ CFLAGS	=	-Wall -Wextra -Werror -pthread -Iinclude -g -O0
 # Sources and objects
 FILES = main \
 		print_all \
-		error/free_all \
-		error/check_error \
+		free_all \
 		utils \
+		philo_tools \
+		new_error/new_error \
 		routine	
 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
@@ -30,7 +31,7 @@ all:	${NAME}
 
 obj:
 	mkdir -p obj
-	mkdir -p obj/error
+	mkdir -p obj/new_error
 
 .c.o:
 		$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
