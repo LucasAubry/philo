@@ -32,3 +32,13 @@ int	ft_strlen(char *str)
 		i++;
 	return(i);
 }
+
+int	check_meals(t_philo *philo)
+{
+	if (philo->data->nbr_of_meals == -1)
+		return (0);
+	if (philo->nbr_of_eat < philo->data->nbr_of_meals)
+		return (0);
+	else
+		return (1);
+}	

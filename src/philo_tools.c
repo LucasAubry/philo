@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:56:43 by laubry            #+#    #+#             */
-/*   Updated: 2024/05/31 12:47:50 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/03 17:05:39 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,22 @@ int	make_philo(t_data data, t_philo *philo)
 
 int if_is_dead(t_data *data, t_philo *philo)
 {
-	long i = 0;
+	long i;
+	int j;
 	while(1)
 	{
+		i = 0;
+		j = 0;
 		while (i < data->nbr_philo)
 		{
 			if (philo[i].data->die == 1)
 				return (print_philo_is_dead(philo, i));
+			if (philo->is_ok == 0)
+				j++;
 			i++;
 		}
-		i = 0;	
+		if (j == philo->data->nbr_philo)
+			return (print_philo_eat_all(philo));	
 	}
 }
 

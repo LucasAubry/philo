@@ -6,7 +6,7 @@
 /*   By: lucasaubry <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/05/31 17:39:33 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/03 17:01:13 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,14 @@ long	ft_atol(char *str);
 void	*routine(void *buff);
 void	free_all(t_philo *philo);
 int	ft_strlen(char *str);
+int	check_meals(t_philo *philo);
 
 //int	check_error(int argc, t_data *data, t_philo *philo);
 void	print_str(char *str);
 int if_is_dead(t_data *data, t_philo *philo);
 int	print_philo_is_dead(t_philo *philo, int i);
 void	print_philo(t_philo *philo, char *str);
+
 
 
 int	new_error(int argc, char **argv);
@@ -87,6 +89,7 @@ int	error_advanced(t_data data);
 //philo :
 int	make_philo(t_data data, t_philo *philo);
 int	if_is_dead(t_data *data, t_philo *philo);
+int	print_philo_eat_all(t_philo *philo);
 int	init_philo(t_data *data, t_philo *philo);
 
 //free et delet :

@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 18:20:27 by laubry            #+#    #+#             */
-/*   Updated: 2024/05/30 20:09:05 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/03 15:18:04 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ int	print_error(int code_error)
 	return (1);
 }
 
+int	print_philo_eat_all(t_philo *philo)
+{
+	printf("les philos on bien manger les gros gourmands\n");
+	free_all(philo);
+	return (1);
+}
 int	print_philo_is_dead(t_philo *philo, int i)
 {
 	printf("le philo[%d] vient de mourir (le con)\n", i);

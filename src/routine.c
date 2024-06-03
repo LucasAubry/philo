@@ -52,12 +52,10 @@ void	*routine (void *buff)
 {
 	t_philo *philo = (t_philo *)buff;
 	
-	while(philo->data->die != 1 && philo->nbr_of_eat < philo->data->nbr_of_meals)
+	while(philo->data->die != 1 && !check_meals(philo))
 	{	
 		is_eating(philo);
 		is_sleeping(philo);
-	//	printf("philo[%d] : nbr_eat = %d, nbr_meals = %ld", philo->id, philo->nbr_of_eat, philo->data->nbr_of_meals);
-	//	printf("     %d", philo->nbr_of_eat <= philo->data->nbr_of_meals);
 	}
 	philo->is_ok = 0;
 	return (NULL);
