@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:56:43 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/03 17:05:39 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/03 21:30:24 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	init_philo(t_data *data, t_philo *philo)
 		philo[i].id = i;
 		philo[i].data = data;
 		philo[i].is_ok = 1;
+		philo[i].last_eat = get_time(); 
 		if (pthread_mutex_init(&philo[i].fork_left, NULL) != 0)
 			return(print_error(ERR_CREATE_MUTEX));
 		if (i > 0)
@@ -33,6 +34,8 @@ int	init_philo(t_data *data, t_philo *philo)
 	if (i >= 1)
 		philo[0].fork_right = &philo[i-1].fork_left;
 	if (pthread_mutex_init(&data->print, NULL) != 0)
+		return (print_error(ERR_CREATE_MUTEX));
+	if (pthread_mutex_init(&data->time, NULL) != 0)
 		return (print_error(ERR_CREATE_MUTEX));
 	return (1);
 }
@@ -61,6 +64,21 @@ int if_is_dead(t_data *data, t_philo *philo)
 		j = 0;
 		while (i < data->nbr_philo)
 		{
+		//a corriger demain pour la mort
+		////
+		////
+		///
+		///
+		//
+		//
+		//
+		
+		if ((get_time() - philo->last_eat) == data->time_to_die)
+				data->die = 1;
+		//
+		//
+		//
+		//
 			if (philo[i].data->die == 1)
 				return (print_philo_is_dead(philo, i));
 			if (philo->is_ok == 0)

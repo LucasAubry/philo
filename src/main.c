@@ -6,7 +6,7 @@
 /*   By: lucasaubry <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:09:26 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/05/31 17:38:41 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/03 18:41:46 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_data(int argc, char **argv, t_data *data)
 	data->time_to_eat = ft_atol(argv[3]);
 	data->time_to_sleep = ft_atol(argv[4]);	
 	data->die = 0;
+	data->time_start = get_time();
 	if (argc == 6)
 		data->nbr_of_meals = ft_atol(argv[5]);	
 	else

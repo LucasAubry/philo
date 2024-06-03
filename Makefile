@@ -12,6 +12,7 @@ FILES = main \
 		free_all \
 		utils \
 		philo_tools \
+		get_time \
 		new_error/new_error \
 		routine	
 

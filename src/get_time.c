@@ -6,13 +6,13 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:24:58 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/03 13:57:08 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/03 20:26:02 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	get_time()
+long	get_time(void)
 {
 		struct timeval time;
 

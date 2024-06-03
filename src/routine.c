@@ -29,6 +29,9 @@ void	lock_unlock_fork(t_philo *philo, int i)
 void	is_eating(t_philo *philo)
 {
 	lock_unlock_fork(philo, 1);
+	pthread_mutex_lock(&philo->data->time);
+	philo->last_eat = get_time();
+	pthread_mutex_unlock(&philo->data->time);
 	//temp
 	print_philo(philo, "is eating\n");
 	philo->nbr_of_eat += 1;
@@ -51,7 +54,7 @@ void	is_sleeping(t_philo *philo)
 void	*routine (void *buff)
 {
 	t_philo *philo = (t_philo *)buff;
-	
+
 	while(philo->data->die != 1 && !check_meals(philo))
 	{	
 		is_eating(philo);
