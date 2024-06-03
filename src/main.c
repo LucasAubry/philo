@@ -6,7 +6,7 @@
 /*   By: lucasaubry <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:09:26 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/05/30 20:52:14 by laubry           ###   ########.fr       */
+/*   Updated: 2024/05/31 17:38:41 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,28 @@ void	init_data(int argc, char **argv, t_data *data)
 //argv[5](optionelle) = nombre de repas que les philos doivent faire int max
 
 
+int	if_is_ok(t_philo *philo)
+{
+	int	i;
+	int j;
+
+	i = 0;
+	j = 0;
+
+	while(i < philo->data->nbr_philo)
+	{
+		if (philo->is_ok == 0)
+			j++;
+		printf("%d", j);
+		i++;
+	}
+	if (j == philo->data->nbr_philo)
+		return (1);
+	else
+		return (0);
+}
+
+
 int	main(int argc, char **argv)
 {
 	t_data data;
@@ -51,13 +73,17 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!make_philo(data, philo))
 		return (0);	
-	if (if_is_dead(&data, philo) == 1)
+
+	if (if_is_dead(&data, philo) == 1 || if_is_ok(philo))
 	{
 		while (i < data.nbr_philo)
 		{
 			pthread_join(philo->tid, NULL);
 			i++;
 		}
+		free_all(philo);
+		delet_mutex(philo);
 		return (EXIT_SUCCESS);
 	}
 }
+

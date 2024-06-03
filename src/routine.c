@@ -31,14 +31,9 @@ void	is_eating(t_philo *philo)
 	lock_unlock_fork(philo, 1);
 	//temp
 	print_philo(philo, "is eating\n");
+	philo->nbr_of_eat += 1;
 	usleep(philo->data->time_to_eat * 1000);
 	lock_unlock_fork(philo, 0);
-}
-
-void	is_sleeping(t_philo *philo)
-{
-	print_philo(philo, "is sleeping\n");	
-	usleep(philo->data->time_to_sleep * 1000);
 }
 
 void	is_thinking(t_philo *philo)
@@ -46,16 +41,25 @@ void	is_thinking(t_philo *philo)
 	print_philo(philo, "is thinking\n");
 }
 
+void	is_sleeping(t_philo *philo)
+{
+	print_philo(philo, "is sleeping\n");	
+	usleep(philo->data->time_to_sleep * 1000);
+	is_thinking(philo);
+}
+
 void	*routine (void *buff)
 {
 	t_philo *philo = (t_philo *)buff;
 	
-	while(philo->data->die != 1)
+	while(philo->data->die != 1 && philo->nbr_of_eat < philo->data->nbr_of_meals)
 	{	
 		is_eating(philo);
 		is_sleeping(philo);
-		is_thinking(philo);
+	//	printf("philo[%d] : nbr_eat = %d, nbr_meals = %ld", philo->id, philo->nbr_of_eat, philo->data->nbr_of_meals);
+	//	printf("     %d", philo->nbr_of_eat <= philo->data->nbr_of_meals);
 	}
+	philo->is_ok = 0;
 	return (NULL);
 }
 

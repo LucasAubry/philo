@@ -6,7 +6,7 @@
 /*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:56:43 by laubry            #+#    #+#             */
-/*   Updated: 2024/05/30 18:35:14 by laubry           ###   ########.fr       */
+/*   Updated: 2024/05/31 12:47:50 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ int	init_philo(t_data *data, t_philo *philo)
 
 	while (i < data->nbr_philo)
 	{
-		philo[i].eat = 0;
+		philo[i].nbr_of_eat = 0;
 		philo[i].sleep = 0;
 		philo[i].think = 0;
 		philo[i].id = i;
 		philo[i].data = data;
+		philo[i].is_ok = 1;
 		if (pthread_mutex_init(&philo[i].fork_left, NULL) != 0)
 			return(print_error(ERR_CREATE_MUTEX));
 		if (i > 0)
