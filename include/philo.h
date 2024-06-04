@@ -6,7 +6,7 @@
 /*   By: lucasaubry <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/03 21:31:20 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/04 18:43:00 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 
 typedef struct s_time
 {
-	struct timeval start;
-	struct timeval end;
+	struct timeval	start;
+	struct timeval	end;
 }	t_time;
 
 typedef struct s_data
@@ -40,10 +40,9 @@ typedef struct s_data
 	long			nbr_of_meals;
 	int				die;
 	long			time_start;
-	pthread_mutex_t print;
-	pthread_mutex_t time;
+	pthread_mutex_t	print;
+	pthread_mutex_t	time;
 }	t_data;
-
 
 typedef struct s_philo
 {
@@ -53,7 +52,7 @@ typedef struct s_philo
 	int				sleep;
 	int				think;
 	int				is_ok;
-	int				last_eat;
+	long				last_eat;
 	pthread_mutex_t	fork_left;
 	pthread_mutex_t	*fork_right;
 	struct s_data	*data;
@@ -73,28 +72,24 @@ typedef struct s_philo
 long	ft_atol(char *str);
 void	*routine(void *buff);
 void	free_all(t_philo *philo);
-int	ft_strlen(char *str);
-int	check_meals(t_philo *philo);
+int		ft_strlen(char *str);
+int		check_meals(t_philo *philo);
 long	get_time(void);
 
 //int	check_error(int argc, t_data *data, t_philo *philo);
 void	print_str(char *str);
-int if_is_dead(t_data *data, t_philo *philo);
-int	print_philo_is_dead(t_philo *philo, int i);
+int		if_is_end(t_data *data, t_philo *philo);
+int		print_philo_is_dead(t_philo *philo, int i);
 void	print_philo(t_philo *philo, char *str);
-
-
-
-int	new_error(int argc, char **argv);
-int	print_error(int code_error);
-int	error_advanced(t_data data);
-
+int		new_error(int argc, char **argv);
+int		print_error(int code_error);
+int		error_advanced(t_data data);
 
 //philo :
-int	make_philo(t_data data, t_philo *philo);
-int	if_is_dead(t_data *data, t_philo *philo);
-int	print_philo_eat_all(t_philo *philo);
-int	init_philo(t_data *data, t_philo *philo);
+int		make_philo(t_data data, t_philo *philo);
+int		if_is_dead(t_data *data, t_philo *philo);
+int		print_philo_eat_all(t_philo *philo);
+int		init_philo(t_data *data, t_philo *philo);
 
 //free et delet :
 void	delet_mutex(t_philo *philo);

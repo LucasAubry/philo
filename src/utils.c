@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 12:40:13 by laubry            #+#    #+#             */
+/*   Updated: 2024/06/04 20:38:34 by laubry           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 long	ft_atol(char *str)
@@ -27,10 +39,12 @@ long	ft_atol(char *str)
 
 int	ft_strlen(char *str)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (str[i])
 		i++;
-	return(i);
+	return (i);
 }
 
 int	check_meals(t_philo *philo)
@@ -41,4 +55,4 @@ int	check_meals(t_philo *philo)
 		return (0);
 	else
 		return (1);
-}	
+}
