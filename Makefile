@@ -1,7 +1,7 @@
 #-----------------------Flags_and_Name---------------------
 NAME	=	philo
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -pthread -Iinclude -g -O0
+CFLAGS	=	-Wall -Wextra -Werror -pthread -Iinclude -g #-fsanitize=thread 
 
 #-L/opt/homebrew/lib 
 #------------------------Source-----------------------------

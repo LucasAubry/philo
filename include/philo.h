@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucasaubry <marvin@42.fr>                  +#+  +:+       +#+        */
+/*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/04 18:43:00 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/05 18:29:08 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,21 @@ typedef struct s_data
 	long			time_to_sleep;
 	long			nbr_of_meals;
 	int				die;
-	long			time_start;
+	struct timeval			time_start;
 	pthread_mutex_t	print;
-	pthread_mutex_t	time;
+	pthread_mutex_t	death;
 }	t_data;
 
 typedef struct s_philo
 {
+	pthread_mutex_t	time;
 	pthread_t		tid;
 	int				id;
 	int				nbr_of_eat;
 	int				sleep;
 	int				think;
 	int				is_ok;
-	long				last_eat;
+	struct timeval				last_eat;
 	pthread_mutex_t	fork_left;
 	pthread_mutex_t	*fork_right;
 	struct s_data	*data;
@@ -71,10 +72,11 @@ typedef struct s_philo
 //tools :
 long	ft_atol(char *str);
 void	*routine(void *buff);
-void	free_all(t_philo *philo);
+int		free_all(t_philo *philo);
 int		ft_strlen(char *str);
 int		check_meals(t_philo *philo);
-long	get_time(void);
+// long	get_time(void);
+long	get_time(struct timeval	start_time);
 
 //int	check_error(int argc, t_data *data, t_philo *philo);
 void	print_str(char *str);

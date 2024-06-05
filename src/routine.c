@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laubry <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:21:29 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/04 20:32:55 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/05 18:54:21 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	lock_unlock_fork(t_philo *philo, int i)
 	}
 	else if (i == 0)
 	{
+		print_philo(philo, "has drop a fork\n");
 		pthread_mutex_unlock(&philo->fork_left);
 		pthread_mutex_unlock(philo->fork_right);
 	}
@@ -41,9 +42,10 @@ void	lock_unlock_fork(t_philo *philo, int i)
 void	is_eating(t_philo *philo)
 {
 	lock_unlock_fork(philo, 1);
-	pthread_mutex_lock(&philo->data->time);
-	philo->last_eat = get_time();
-	pthread_mutex_unlock(&philo->data->time);
+	pthread_mutex_lock(&philo->time);
+	gettimeofday(&philo->last_eat, NULL);
+	// get_time(philo->last_eat);
+	pthread_mutex_unlock(&philo->time);
 	print_philo(philo, "is eating\n");
 	philo->nbr_of_eat += 1;
 	usleep(philo->data->time_to_eat * 1000);
@@ -66,15 +68,21 @@ void	*routine(void *buff)
 	t_philo	*philo;
 
 	philo = (t_philo *)buff;
-	while (philo->data->die != 1 && !check_meals(philo))
+	while (!check_meals(philo))
 	{
-		is_eating(philo);
+		pthread_mutex_lock(&philo->data->death);
 		if (philo->data->die == 1)
-			return (NULL);
+		{
+			pthread_mutex_unlock(&philo->data->death);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->data->death);
+		is_eating(philo);
 		is_sleeping(philo);
 		is_thinking(philo);
-
 	}
+	pthread_mutex_lock(&philo->data->death);
 	philo->is_ok = 0;
+	pthread_mutex_unlock(&philo->data->death);
 	return (NULL);
 }
