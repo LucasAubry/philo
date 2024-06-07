@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:21:29 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/05 18:54:21 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/07 17:34:29 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	is_eating(t_philo *philo)
 	lock_unlock_fork(philo, 1);
 	pthread_mutex_lock(&philo->time);
 	gettimeofday(&philo->last_eat, NULL);
-	// get_time(philo->last_eat);
 	pthread_mutex_unlock(&philo->time);
 	print_philo(philo, "is eating\n");
 	philo->nbr_of_eat += 1;
@@ -68,7 +67,7 @@ void	*routine(void *buff)
 	t_philo	*philo;
 
 	philo = (t_philo *)buff;
-	while (!check_meals(philo))
+	while (1)
 	{
 		pthread_mutex_lock(&philo->data->death);
 		if (philo->data->die == 1)
@@ -78,11 +77,10 @@ void	*routine(void *buff)
 		}
 		pthread_mutex_unlock(&philo->data->death);
 		is_eating(philo);
+		if (philo->data->nbr_of_meals != -1)
+			check_meals(philo);
 		is_sleeping(philo);
 		is_thinking(philo);
 	}
-	pthread_mutex_lock(&philo->data->death);
-	philo->is_ok = 0;
-	pthread_mutex_unlock(&philo->data->death);
 	return (NULL);
 }

@@ -1,0 +1,58 @@
+0 the philo[1] has taken a fork right
+0 the philo[1] has taken a fork left
+0 the philo[1] is eating
+1 the philo[2] has taken a fork left
+200 the philo[1] has drop a fork
+200 the philo[1] is sleeping
+200 the philo[2] has taken a fork right
+200 the philo[2] is eating
+200 the philo[4] has taken a fork left
+200 the philo[4] has taken a fork right
+200 the philo[4] is eating
+400 the philo[1] is thinking
+400 the philo[2] has drop a fork
+400 the philo[2] is sleeping
+400 the philo[4] has drop a fork
+400 the philo[4] is sleeping
+400 the philo[3] has taken a fork right
+400 the philo[3] has taken a fork left
+400 the philo[3] is eating
+400 the philo[1] has taken a fork right
+400 the philo[1] has taken a fork left
+400 the philo[1] is eating
+601 the philo[4] is thinking
+601 the philo[2] is thinking
+601 the philo[3] has drop a fork
+601 the philo[3] is sleeping
+601 the philo[1] has drop a fork
+philo : 1 alllllllll
+601 the philo[1] is sleeping
+601 the philo[2] has taken a fork left
+601 the philo[2] has taken a fork right
+601 the philo[2] is eating
+601 the philo[4] has taken a fork left
+601 the philo[4] has taken a fork right
+601 the philo[4] is eating
+801 the philo[1] is thinking
+801 the philo[3] is thinking
+801 the philo[2] has drop a fork
+philo : 2 alllllllll
+801 the philo[2] is sleeping
+801 the philo[4] has drop a fork
+philo : 4 alllllllll
+801 the philo[4] is sleeping
+801 the philo[3] has taken a fork right
+801 the philo[3] has taken a fork left
+801 the philo[3] is eating
+801 the philo[1] has taken a fork right
+801 the philo[1] has taken a fork left
+801 the philo[1] is eating
+1000 the philo[2] is thinking
+1000 the philo[4] is thinking
+1000 the philo[3] has drop a fork
+philo : 3 alllllllll
+1000 the philo[3] is sleeping
+1000 les philo on tout manger 
+philo : 1 alllllllll
+philo : 4 alllllllll
+philo : 2 alllllllll

@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:55:20 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/05 17:54:47 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/06 14:59:24 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	data_error(char **argv, int args)
 		else
 			return(print_error(ERR_ARGS));
 	}
-	return (0);
+	return (1);
 }
 
 int	new_error(int argc, char **argv)
@@ -42,11 +42,11 @@ int	new_error(int argc, char **argv)
 		return(print_error(ERR_ARGS));
 	while (i != argc)
 	{
-		if (data_error(argv, i))
-			return(1);
+		if (!data_error(argv, i))
+			return(0);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	error_advanced(t_data data)
@@ -54,6 +54,6 @@ int	error_advanced(t_data data)
 	if (data.nbr_philo > 200)
 		return(print_error(ERR_TOO_PHILO));
 	else
-		return (0);
+		return (1);
 	//suite de args
 }

@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:56:43 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/05 18:58:37 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/07 17:33:05 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	init_philo(t_data *data, t_philo *philo)
 		philo[i].id = i + 1;
 		philo[i].data = data;
 		philo[i].is_ok = 1;
-		// philo[i].last_eat = get_time();
 		if (pthread_mutex_init(&philo[i].time, NULL) != 0)
 			return (print_error(ERR_CREATE_MUTEX));
 		gettimeofday(&philo[i].last_eat, NULL);
@@ -37,10 +36,6 @@ int	init_philo(t_data *data, t_philo *philo)
 	}
 	if (i >= 1)
 		philo[0].fork_right = &philo[i -1].fork_left;
-//	if (pthread_mutex_init(&data->print, NULL) != 0)
-//		return (print_error(ERR_CREATE_MUTEX));
-//	if (pthread_mutex_init(&data->time, NULL) != 0)
-//		return (print_error(ERR_CREATE_MUTEX));
 	return (1);
 }
 
@@ -53,6 +48,7 @@ int	make_philo(t_data data, t_philo *philo)
 	{
 		if (pthread_create(&philo[i].tid, NULL, routine, &philo[i]) != 0)
 			return (print_error(ERR_CREATE_PHILO));
+		usleep(1000);
 		i++;
 	}
 	return (1);
@@ -63,11 +59,10 @@ int if_is_end(t_data *data, t_philo *philo)
 	long 	i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	while (i < data->nbr_philo)
+	while (++i < data->nbr_philo)
 	{
-		//metre un mutex pour proteger la lecture de last_eat
 		pthread_mutex_lock(&philo[i].time);
 		if (get_time(philo[i].last_eat) > data->time_to_die)
 		{
@@ -75,16 +70,15 @@ int if_is_end(t_data *data, t_philo *philo)
 			pthread_mutex_lock(&philo->data->death);
 			data->die = 1;
 			pthread_mutex_unlock(&philo->data->death);
-			return (print_philo_is_dead(philo, i));
+			return (print_philo_is_dead(philo, philo[i].id));
 		}
 		pthread_mutex_unlock(&philo[i].time);
-		pthread_mutex_lock(&philo->data->death);
-		if (philo->is_ok == 0)
+		pthread_mutex_lock(&philo[i].data->death);
+		if (philo[i].is_ok == 0)
 			j++;
-		pthread_mutex_unlock(&philo->data->death);
-		i++;
+		if (j == philo->data->nbr_philo)
+			return (print_philo_eat_all(philo));
+		pthread_mutex_unlock(&philo[i].data->death);
 	}
-	if (j == philo->data->nbr_philo)
-		return (print_philo_eat_all(philo));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/05 18:29:08 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/06 16:03:43 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ typedef struct s_data
 	long			time_to_sleep;
 	long			nbr_of_meals;
 	int				die;
+	int				philo_eat_all;
 	struct timeval			time_start;
 	pthread_mutex_t	print;
 	pthread_mutex_t	death;
+	pthread_mutex_t	meal;
 }	t_data;
 
 typedef struct s_philo
@@ -92,6 +94,7 @@ int		make_philo(t_data data, t_philo *philo);
 int		if_is_dead(t_data *data, t_philo *philo);
 int		print_philo_eat_all(t_philo *philo);
 int		init_philo(t_data *data, t_philo *philo);
+int		check_eat_all (t_philo *philo);
 
 //free et delet :
 void	delet_mutex(t_philo *philo);

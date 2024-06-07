@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 18:20:27 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/05 18:52:18 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/07 17:33:04 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ int	print_error(int code_error)
 
 int	print_philo_eat_all(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->death);
 	if (philo->data->die != 1)
 	{
 		pthread_mutex_unlock(&philo->data->death);
-		printf("%ld les philo on tout manger\n",
+		if (philo->data->philo_eat_all == 1)
+			philo->data->die = 1;
+		printf("%ld les philo on tout manger \n",
 			get_time(philo->data->time_start));
 	}
 	pthread_mutex_unlock(&philo->data->death);
@@ -62,7 +63,6 @@ int	print_philo_is_dead(t_philo *philo, int i)
 		printf("%ld le philo[%d] vient de mourir (le con)\n",
 			get_time(philo->data->time_start), i);
 		pthread_mutex_unlock(&philo->data->print);
-		//return (1);
 	}
 	return (1);
 }
@@ -70,13 +70,12 @@ int	print_philo_is_dead(t_philo *philo, int i)
 void	print_philo(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->data->death);
-	if (philo->data->die != 1)
+	if (philo->data->die != 1)// && philo->data->philo_eat_all != 1)
 	{
 		pthread_mutex_unlock(&philo->data->death);
 		pthread_mutex_lock(&philo->data->print);
 		printf("%ld the philo[%d] %s",
 			get_time(philo->data->time_start), philo->id, str);
-		// printf("ACTUAL TIME >>> %ld\n", get_time());
 		pthread_mutex_unlock(&philo->data->print);
 		return ;
 	}

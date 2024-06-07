@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:24:58 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/05 17:54:45 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/06 00:34:11 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 // }
 
-
+//SOURCE DU PROBLEME A REGLER DEMAIN GROS CON
 long	get_time(struct timeval	start_time)
 {
 	static struct timeval	end_time;

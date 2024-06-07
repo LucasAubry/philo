@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:40:13 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/05 17:54:41 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/07 17:24:24 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ long	ft_atol(char *str)
 	i = 0;
 	j = 1;
 	n = 0;
-	while (((str[i] >= 9 && str[i] <= 13) || str[i] == ' ') && str[i])
+	while (((str[i] && str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
 		i++;
-	if ((str[i] == '+' || str[i] == '-') && str[i])
+	if (str[i] && (str[i] == '+' || str[i] == '-'))
 	{
 		if (str[i] == '-')
 			j *= -1;
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9' && str[i])
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
 		n = (n * 10) + (str[i] - '0');
 		i++;
@@ -49,10 +49,18 @@ int	ft_strlen(char *str)
 
 int	check_meals(t_philo *philo)
 {
-	if (philo->data->nbr_of_meals == -1)
-		return (0);
+	pthread_mutex_lock(&philo->data->death);
 	if (philo->nbr_of_eat < philo->data->nbr_of_meals)
+	{
+		pthread_mutex_unlock(&philo->data->death);
 		return (0);
+	}
 	else
+	{
+		printf("philo : %d alllllllll\n",philo->id );
+		philo->data->philo_eat_all = 1;
+		philo->is_ok = 0;
+		pthread_mutex_unlock(&philo->data->death);
 		return (1);
+	}
 }
