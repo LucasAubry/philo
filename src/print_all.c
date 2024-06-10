@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 18:20:27 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/10 14:27:37 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:15:51 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int	print_error(int code_error)
 {
 	if (code_error == ERR_ARGS)
 		print_message("ERREUR D'ARGUMENTS");
-	else if (code_error == ERR_MALLOC)
-		print_message("ERREUR MALLOC");
 	else if (code_error == ERR_CREATE_MUTEX)
 		print_message("ERREUR MUTEX");
 	else if (code_error == ERR_CREATE_PHILO)
@@ -41,7 +39,7 @@ int	print_error(int code_error)
 	return (0);
 }
 
-int	print_philo_eat_all(t_philo *philo, int	mutex)
+int	print_philo_eat_all(t_philo *philo, int mutex)
 {
 	if (!mutex)
 		pthread_mutex_lock(&philo->data->death);
@@ -60,7 +58,7 @@ int	print_philo_eat_all(t_philo *philo, int	mutex)
 }
 
 int	print_philo_is_dead(t_philo *philo, int i)
-{	
+{
 	if (philo->data->die == 1)
 	{
 		pthread_mutex_lock(&philo->data->print);
@@ -74,9 +72,8 @@ int	print_philo_is_dead(t_philo *philo, int i)
 void	print_philo(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->data->death);
-	if (philo->data->die != 1)// && philo->data->philo_eat_all != 1)
+	if (philo->data->die != 1)
 	{
-		//invrse les deux ca peut aider
 		pthread_mutex_lock(&philo->data->print);
 		pthread_mutex_unlock(&philo->data->death);
 		printf("%ld the philo[%d] %s",
@@ -87,4 +84,3 @@ void	print_philo(t_philo *philo, char *str)
 	pthread_mutex_unlock(&philo->data->death);
 	return ;
 }
-//16

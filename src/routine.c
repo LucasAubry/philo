@@ -6,10 +6,9 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:21:29 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/10 00:54:47 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:56:18 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "philo.h"
 
@@ -47,9 +46,9 @@ void	is_eating(t_philo *philo)
 	gettimeofday(&philo->last_eat, NULL);
 	pthread_mutex_unlock(&philo->time);
 	print_philo(philo, "is eating\n");
-	pthread_mutex_lock(&philo->time);// modifier 
+	pthread_mutex_lock(&philo->time);
 	philo->nbr_of_eat += 1;
-	pthread_mutex_unlock(&philo->time);// modifer 
+	pthread_mutex_unlock(&philo->time);
 	usleep(philo->data->time_to_eat * 1000);
 	lock_unlock_fork(philo, 0);
 }

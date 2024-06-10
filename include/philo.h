@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/10 14:13:17 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:20:09 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_data
 	long			nbr_of_meals;
 	int				die;
 	int				philo_eat_all;
-	struct timeval			time_start;
+	struct timeval	time_start;
 	pthread_mutex_t	print;
 	pthread_mutex_t	death;
 	pthread_mutex_t	meal;
@@ -55,7 +55,7 @@ typedef struct s_philo
 	int				sleep;
 	int				think;
 	int				is_ok;
-	struct timeval				last_eat;
+	struct timeval	last_eat;
 	pthread_mutex_t	fork_left;
 	pthread_mutex_t	*fork_right;
 	struct s_data	*data;
@@ -79,7 +79,7 @@ int		ft_strlen(char *str);
 int		check_meals(t_philo *philo);
 
 // long	get_time(void);
-long	get_time(struct timeval	start_time);
+long	get_time(struct timeval start_time);
 
 //int	check_error(int argc, t_data *data, t_philo *philo);
 void	print_str(char *str);
@@ -93,9 +93,10 @@ int		error_advanced(t_data data);
 //philo :
 int		make_philo(t_data data, t_philo *philo);
 int		if_is_dead(t_data *data, t_philo *philo);
-int		print_philo_eat_all(t_philo *philo, int	mutex);
+int		print_philo_eat_all(t_philo *philo, int mutex);
 int		init_philo(t_data *data, t_philo *philo);
-int		check_eat_all (t_philo *philo);
+int		check_eat_all(t_philo *philo);
+int		monophilo(t_philo *philo);
 
 //free et delet :
 void	delet_mutex(t_philo *philo);

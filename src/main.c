@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:09:26 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/07 16:40:09 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:14:18 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,22 @@ void	init_data(int argc, char **argv, t_data *data)
 	pthread_mutex_init(&data->meal, NULL);
 }
 
-//argv[1] = nbr de philo et nbr de fourchettes 200
-//argv[2] = temps avant de mourir sans manger en millisecondes int max
-//argv[3] = temps pour manger en millisecondes int max
-//argv[4] = temps pour dormir em millisecondes int max
-//argv[5](optionelle) = nombre de repas que les philos doivent faire int max
+int	monophilo(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_lock(&philo->fork_left);
+	print_philo(philo, "has taken a fork left\n");
+	usleep(philo->data->time_to_die * 1000);
+	pthread_mutex_unlock(&philo->fork_left);
+	pthread_mutex_lock(&philo->data->print);
+	printf("%ld le philo[%d] vient de mourir (le con)\n",
+		get_time(philo->data->time_start), i);
+	pthread_mutex_unlock(&philo->data->print);
+	free_all(philo);
+	return (1);
+}
 
 int	main(int argc, char **argv)
 {
@@ -42,7 +53,6 @@ int	main(int argc, char **argv)
 	t_philo	*philo;
 	int		i;
 
-	philo = NULL;
 	i = -1;
 	if (!new_error(argc, argv))
 		return (0);
@@ -50,13 +60,13 @@ int	main(int argc, char **argv)
 	if (!error_advanced(data))
 		return (0);
 	philo = malloc(sizeof(t_philo) * data.nbr_philo);
-	if (!philo)
-		return (print_error(ERR_MALLOC));
 	if (!init_philo(&data, philo))
 	{
 		free(philo);
-		return (0);//cree des problemme si le premier mutex ce cree mais pas le deuxieme pour free
+		return (0);
 	}
+	if (data.nbr_philo == 1)
+		return (monophilo(philo));
 	if (!make_philo(data, philo))
 		return (free_all(philo));
 	while (if_is_end(&data, philo) == 0)
