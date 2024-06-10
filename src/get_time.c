@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:24:58 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/06 00:34:11 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/10 01:41:39 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 //SOURCE DU PROBLEME A REGLER DEMAIN GROS CON
 long	get_time(struct timeval	start_time)
 {
-	static struct timeval	end_time;
+	//plus de static
+	struct timeval			end_time;
 	long					seconds;
 	long					micro;
 

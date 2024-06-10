@@ -1,0 +1,8 @@
+les ligne modifier :
+
+dans is_eating ligne 50 et 52 (rajout des mutex)
+
+dans print philo invercement dans le if de pthread mutex lock et unlock (print au dessu et death en dessou)
+	
+
+philo_tools regarde rsur cht gpt lencient code

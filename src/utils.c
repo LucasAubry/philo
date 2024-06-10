@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:40:13 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/07 17:24:24 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/10 13:21:10 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	check_meals(t_philo *philo)
 	}
 	else
 	{
-		printf("philo : %d alllllllll\n",philo->id );
 		philo->data->philo_eat_all = 1;
 		philo->is_ok = 0;
 		pthread_mutex_unlock(&philo->data->death);

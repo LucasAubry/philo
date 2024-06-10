@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:02:11 by lucasaubry        #+#    #+#             */
-/*   Updated: 2024/06/06 16:03:43 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/10 14:13:17 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	*routine(void *buff);
 int		free_all(t_philo *philo);
 int		ft_strlen(char *str);
 int		check_meals(t_philo *philo);
+
 // long	get_time(void);
 long	get_time(struct timeval	start_time);
 
@@ -92,7 +93,7 @@ int		error_advanced(t_data data);
 //philo :
 int		make_philo(t_data data, t_philo *philo);
 int		if_is_dead(t_data *data, t_philo *philo);
-int		print_philo_eat_all(t_philo *philo);
+int		print_philo_eat_all(t_philo *philo, int	mutex);
 int		init_philo(t_data *data, t_philo *philo);
 int		check_eat_all (t_philo *philo);
 

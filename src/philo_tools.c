@@ -6,7 +6,7 @@
 /*   By: laubry <laubry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 13:56:43 by laubry            #+#    #+#             */
-/*   Updated: 2024/06/07 17:33:05 by laubry           ###   ########.fr       */
+/*   Updated: 2024/06/10 14:28:16 by laubry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,27 +58,37 @@ int if_is_end(t_data *data, t_philo *philo)
 {
 	long 	i;
 	int		j;
+	long	copy;
+	int		result;
 
 	i = -1;
 	j = 0;
+
 	while (++i < data->nbr_philo)
 	{
 		pthread_mutex_lock(&philo[i].time);
-		if (get_time(philo[i].last_eat) > data->time_to_die)
+		copy = get_time(philo[i].last_eat);
+		pthread_mutex_unlock(&philo[i].time);
+
+		if (copy > data->time_to_die)
 		{
-			pthread_mutex_unlock(&philo[i].time);
 			pthread_mutex_lock(&philo->data->death);
 			data->die = 1;
 			pthread_mutex_unlock(&philo->data->death);
 			return (print_philo_is_dead(philo, philo[i].id));
 		}
-		pthread_mutex_unlock(&philo[i].time);
 		pthread_mutex_lock(&philo[i].data->death);
 		if (philo[i].is_ok == 0)
 			j++;
-		if (j == philo->data->nbr_philo)
-			return (print_philo_eat_all(philo));
 		pthread_mutex_unlock(&philo[i].data->death);
+
+		if (j == philo->data->nbr_philo)
+		{
+			pthread_mutex_lock(&philo->data->death);
+			result = print_philo_eat_all(philo, 1);
+			pthread_mutex_unlock(&philo->data->death);
+			return (result);
+		}
 	}
 	return (0);
 }
